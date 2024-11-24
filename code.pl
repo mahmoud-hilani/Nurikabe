@@ -18,17 +18,8 @@ fxd_cell(7, 5, 1).
 fxd_cell(7, 7, 6).
 
 
-solve_cell(1, 4,green).
-solve_cell(1, 3,green).
-solve_cell(3, 2,green).
-solve_cell(3, 6,green).
-solve_cell(3, 7,green).
-solve_cell(4, 7,green).
-solve_cell(5, 4,green).
-solve_cell(5, 7,green).
-solve_cell(6, 7,green).
-solve_cell(7, 3,green).
 
+% player can add land
 add_land(Row,Col):-
     grid_size(Rows, Cols),
     between(1,Rows,Row),
@@ -48,7 +39,7 @@ remove_land(Row,Col):-
 is_empty_cell(Row, Col) :-
     \+ solve_cell(Row, Col, _),                 % Not solved (land or sea)
     \+ fxd_cell(Row, Col, _).
-
+% restart the game
 restart:-
     retractall(solve_cell(_,_,_)),
         print_grid.
@@ -244,7 +235,7 @@ sum_fixed_cells([(_, _,Num) | Tail], Count) :-
     ;   Count is Count1).
 
 
-solved :- one_sea,
+solved :- 
     no_2_by_2_sea_blocks,
     island_equals_one_fixed,
     lands_equals_fixeds.
